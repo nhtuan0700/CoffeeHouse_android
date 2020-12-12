@@ -7,18 +7,20 @@
     tools:context=".fragment_news"
     android:orientation="vertical"
     android:background="#efecf3">
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
         android:paddingHorizontal="10dp"
-        android:paddingVertical="12dp"
+        android:paddingVertical="5dp"
         android:background="#fff">
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/logout_layout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginVertical="7dp">
             <ImageView
                 android:layout_width="28dp"
                 android:layout_height="28dp"
@@ -42,11 +44,48 @@
                     android:textColor="@drawable/textcolor"/>
             </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:id="@+id/login_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:visibility="gone">
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/avatar"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                app:riv_corner_radius="90dp"
+                android:src="@drawable/avatar_df"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                android:layout_marginRight="10dp"/>
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tuấn Nguyễn"
+                    android:textSize="16sp"
+                    android:textColor="#000"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Khách hàng mới"
+                    android:textSize="16sp"
+                    android:textColor="#888"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+        </LinearLayout>
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
-            android:src="@drawable/ic_notification"/>
-    </LinearLayout>
+            android:src="@drawable/ic_notification"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -85,10 +124,14 @@
                         android:textSize="12sp"
                         android:layout_marginTop="8dp"/>
                 </LinearLayout>
-                <LinearLayout
+                <Space
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_weight="1"/>
+                <LinearLayout
+                    android:id="@+id/order"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
                     android:gravity="center_horizontal">
                     <ImageView
@@ -103,6 +146,10 @@
                         android:textSize="12sp"
                         android:layout_marginTop="8dp"/>
                 </LinearLayout>
+                <Space
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -147,7 +194,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="315dp"
                     android:paddingHorizontal="5dp"
                     android:overScrollMode="never"/>
             </LinearLayout>
@@ -177,7 +224,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="315dp"
                     android:paddingHorizontal="5dp"/>
             </LinearLayout>
 

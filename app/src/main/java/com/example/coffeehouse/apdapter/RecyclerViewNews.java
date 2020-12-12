@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.coffeehouse.R;
 import com.example.coffeehouse.activity_detail_new;
 import com.example.coffeehouse.model.News;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -41,7 +42,7 @@ public class RecyclerViewNews extends RecyclerView.Adapter<RecyclerViewNews.MyVi
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvTitle.setText(mData.get(position).getTitle());
         holder.tvDescription.setText(mData.get(position).getDescription());
-        holder.imageView.setImageResource(mData.get(position).getImage());
+        Picasso.get().load(mData.get(position).getImage()).into(holder.imageView);
     }
 
     @Override
@@ -63,6 +64,7 @@ public class RecyclerViewNews extends RecyclerView.Adapter<RecyclerViewNews.MyVi
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, activity_detail_new.class);
+                    intent.putExtra("ID",mData.get(getAdapterPosition()).getId());
                     mContext.startActivity(intent);
                 }
             });
@@ -70,6 +72,7 @@ public class RecyclerViewNews extends RecyclerView.Adapter<RecyclerViewNews.MyVi
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(mContext, activity_detail_new.class);
+                    intent.putExtra("ID",mData.get(getAdapterPosition()).getId());
                     mContext.startActivity(intent);
                 }
             });

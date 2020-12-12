@@ -2,32 +2,39 @@ package com.example.coffeehouse.apdapter;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coffeehouse.R;
+import com.example.coffeehouse.activity_detail_new;
 import com.example.coffeehouse.model.Drink;
 import com.example.coffeehouse.model.News;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class RecyclerListDrink extends RecyclerView.Adapter<RecyclerListDrink.MyViewHolder>{
+public class RecyclerViewMenu extends RecyclerView.Adapter<RecyclerViewMenu.MyViewHolder>{
     private Context mContext;
     private List<Drink> mData;
     private int resource;
-    public RecyclerListDrink(Context mContext, int resource, List<Drink> mData) {
+    DatabaseReference database= FirebaseDatabase.getInstance().getReference();;
+    public RecyclerViewMenu(Context mContext, int resource, List<Drink> mData) {
         this.resource = resource;
         this.mContext = mContext;
         this.mData = mData;
@@ -46,7 +53,7 @@ public class RecyclerListDrink extends RecyclerView.Adapter<RecyclerListDrink.My
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         holder.tvName.setText(mData.get(position).getName());
         holder.tvPrice.setText(Integer.toString(mData.get(position).getPrice()) + " đ");
-        holder.imageView.setImageResource(mData.get(position).getImage());
+        Picasso.get().load(mData.get(position).getImage()).into(holder.imageView);
     }
 
     @Override
@@ -65,13 +72,14 @@ public class RecyclerListDrink extends RecyclerView.Adapter<RecyclerListDrink.My
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,Integer.toString(getAdapterPosition()),Toast.LENGTH_SHORT).show();
-                    openDialog();
+                    openDialog(getAdapterPosition());
                 }
             });
         }
     }
-    public void openDialog() {
+    public void openDialog(int postion) {
+        String result = "";
+
         final Dialog dialog = new Dialog(mContext);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_detail);
@@ -80,8 +88,19 @@ public class RecyclerListDrink extends RecyclerView.Adapter<RecyclerListDrink.My
         TextView tvQuantity = dialog.findViewById(R.id.tv_quantity);
         TextView tvAmmount = dialog.findViewById(R.id.tv_ammount);
         TextView tvPrice = dialog.findViewById(R.id.tv_price);
+        TextView tvName = dialog.findViewById(R.id.tv_name);
+        TextView tvDescription = dialog.findViewById(R.id.tv_description);
+        ImageView imageView = dialog.findViewById(R.id.image);
 
+        // Load Data 
+        Toast.makeText(mContext, mData.get(postion).getCategory(), Toast.LENGTH_SHORT).show();
+        tvName.setText(mData.get(postion).getName());
+        tvPrice.setText(mData.get(postion).getPrice() + "");
+        tvDescription.setText(mData.get(postion).getDescription());
+        Picasso.get().load(mData.get(postion).getImage()).into(imageView);
         tvAmmount.setText(tvPrice.getText());
+        dialog.show();
+
         btnIncrease.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,6 +121,5 @@ public class RecyclerListDrink extends RecyclerView.Adapter<RecyclerListDrink.My
                 }
             }
         });
-        dialog.show();
     }
 }

@@ -1,6 +1,5 @@
 package com.example.coffeehouse;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,12 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.coffeehouse.apdapter.PageAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class fragment_order extends Fragment {
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
-    public PageAdapter pageAdapter;
+    private TabLayout tabLayout350;
+    private ViewPager viewPager350;
+    public PageAdapter pageAdapter350;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -28,21 +28,24 @@ public class fragment_order extends Fragment {
     }
 
     public void addControls(View v) {
-        tabLayout = (TabLayout) v.findViewById(R.id.tabLayout);
-        viewPager = (ViewPager) v.findViewById(R.id.viewpager);
+        tabLayout350 = (TabLayout) v.findViewById(R.id.tabLayout);
+        viewPager350 = (ViewPager) v.findViewById(R.id.viewpager);
     }
 
     public void createTabFragment() {
-        pageAdapter = new PageAdapter(getChildFragmentManager(),tabLayout.getTabCount());
-        pageAdapter.addFragment(new fragment_common());
-        pageAdapter.addFragment(new fragment_common());
-        pageAdapter.addFragment(new fragment_common());
-        viewPager.setAdapter(pageAdapter);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+        pageAdapter350 = new PageAdapter(getChildFragmentManager());
+
+        pageAdapter350.addFragment(new fragment_favourite(),"Nổi bật");
+        pageAdapter350.addFragment(new fragment_drinks(),"Thức uống");
+        pageAdapter350.addFragment(new fragment_food(),"Đồ ăn");
+
+        viewPager350.setAdapter(pageAdapter350);
+        tabLayout350.setupWithViewPager(viewPager350);
+
+        tabLayout350.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                pageAdapter.notifyDataSetChanged();
+
             }
 
             @Override
@@ -55,6 +58,5 @@ public class fragment_order extends Fragment {
 
             }
         });
-        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 }

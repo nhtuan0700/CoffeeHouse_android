@@ -1,19 +1,28 @@
 package com.example.coffeehouse.model;
 
 public class Drink {
-    private int id;
+    private String id;
     private String name;
     private int price;
-    private int image;
+    private String image;
+    private String description;
+    private int favourite;
+    private String category;
 
-    public Drink(int id, String name, int price, int image) {
+    public Drink() {
+    }
+
+    public Drink(String id, String name, int price, String image, String description, int favourite, String category) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.image = image;
+        this.description = description;
+        this.favourite = favourite;
+        this.category = category;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -25,11 +34,23 @@ public class Drink {
         return price;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setId(int id) {
+    public String getDescription() {
+        return description;
+    }
+
+    public int getFavourite() {
+        return favourite;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -41,7 +62,19 @@ public class Drink {
         this.price = price;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setFavourite(int favourite) {
+        this.favourite = favourite;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
